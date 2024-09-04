@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="author" content="Magno Barbosa" />
-  <title>Sorteador de números aleatórios</title>
+  <title>Sorteador de Números Aleatórios</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -47,7 +47,7 @@
       justify-content: center;
     }
 
-    .sortear, .salvarCSV, .limpar {
+    .sortear, .salvar, .limpar {
       width: 100%;
       max-width: 200px;
       height: 50px;
@@ -68,14 +68,14 @@
       background-color: #0056b3;
     }
 
-    .salvarCSV {
+    .salvar {
       background-color: #4CAF50; /* Verde */
       pointer-events: none; /* Inativar o botão por padrão */
       opacity: 0.6; /* Aparência de inatividade */
       cursor: not-allowed; /* Cursor de inatividade */
     }
 
-    .salvarCSV:hover {
+    .salvar:hover {
       background-color: #45a049; /* Cor levemente diferente para hover */
     }
 
@@ -115,7 +115,7 @@
         line-height: 30px;
       }
 
-      .sortear, .salvarCSV, .limpar {
+      .sortear, .salvar, .limpar {
         font-size: 18px;
         height: 40px;
       }
@@ -129,7 +129,7 @@
         line-height: 25px;
       }
 
-      .sortear, .salvarCSV, .limpar {
+      .sortear, .salvar, .limpar {
         font-size: 16px;
         height: 35px;
       }
@@ -147,7 +147,7 @@
       <input type="text" id="maximo" placeholder="999" oninput="validarNumero(this)">
       
       <button type="button" id="sortear" class="sortear" aria-label="Sortear números">Sortear</button>
-      <button type="button" id="salvarCSV" class="salvarCSV" aria-label="Salvar resultados como CSV">Salvar CSV</button>
+      <button type="button" id="salvar" class="salvar" aria-label="Salvar resultados">Salvar</button>
       <button type="button" id="limpar" class="limpar" aria-label="Limpar resultados">Limpar</button>
       <div id="resultado" class="resultado"></div>
       <label for="nomeArquivo">Nome do Arquivo:</label>
@@ -190,9 +190,9 @@
 
       document.getElementById("resultado").innerHTML = html;
       document.getElementById("mensagemErro").textContent = "";
-      document.getElementById("salvarCSV").style.pointerEvents = "auto"; // Ativar o botão "Salvar CSV"
-      document.getElementById("salvarCSV").style.opacity = "1"; // Ativar a opacidade
-      document.getElementById("salvarCSV").style.cursor = "pointer"; // Alterar cursor para pointer
+      document.getElementById("salvar").style.pointerEvents = "auto"; // Ativar o botão "Salvar"
+      document.getElementById("salvar").style.opacity = "1"; // Ativar a opacidade
+      document.getElementById("salvar").style.cursor = "pointer"; // Alterar cursor para pointer
     };
 
     const salvarExcel = () => {
@@ -207,11 +207,9 @@
       
       // Nome do arquivo para o título
       const nomeArquivo = document.getElementById("nomeArquivo").value || "numeros_sorteados";
-      const nomeComCabecalho = { "A1": { v: nomeArquivo } };
 
       // Adiciona o cabeçalho na primeira linha da planilha
       ws["!cols"] = [{ width: 20 }]; // Ajusta a largura da coluna para melhor visualização
-      ws["A1"] = { v: nomeArquivo, t: "s" }; // Adiciona o nome do arquivo na primeira célula
 
       // Adiciona a planilha ao workbook
       XLSX.utils.book_append_sheet(wb, ws, "Números Sorteados");
@@ -225,9 +223,9 @@
       document.getElementById("resultado").innerHTML = "";
       document.getElementById("nomeArquivo").value = ""; // Limpar o campo do nome do arquivo
       document.getElementById("mensagemErro").textContent = ""; // Limpar mensagem de erro
-      document.getElementById("salvarCSV").style.pointerEvents = "none"; // Inativar o botão "Salvar CSV"
-      document.getElementById("salvarCSV").style.opacity = "0.6"; // Reduzir a opacidade
-      document.getElementById("salvarCSV").style.cursor = "not-allowed"; // Alterar cursor para not-allowed
+      document.getElementById("salvar").style.pointerEvents = "none"; // Inativar o botão "Salvar"
+      document.getElementById("salvar").style.opacity = "0.6"; // Reduzir a opacidade
+      document.getElementById("salvar").style.cursor = "not-allowed"; // Alterar cursor para not-allowed
     };
 
     const validarNumero = (input) => {
@@ -240,10 +238,10 @@
     };
 
     document.getElementById("sortear").addEventListener("click", sortear);
-    document.getElementById("salvarCSV").addEventListener("click", salvarExcel);
+    document.getElementById("salvar").addEventListener("click", salvarExcel);
     document.getElementById("limpar").addEventListener("click", limparResultado);
 
-    // Função para embaralhar o array de números
+    // Função para embaralhar o array
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
