@@ -14,9 +14,9 @@
     }
 
     .container {
-      width: 80%;
+      width: 90%;
       max-width: 600px;
-      margin: 0 auto;
+      margin: 20px auto;
       background-color: #fff;
       padding: 20px;
       border-radius: 10px;
@@ -42,16 +42,22 @@
 
     .resultado {
       margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .sortear, .salvarCSV, .limpar {
-      width: 200px;
+      width: 100%;
+      max-width: 200px;
       height: 50px;
       font-size: 20px;
       color: #fff;
       border: none;
       cursor: pointer;
-      margin-top: 10px;
+      margin: 10px auto;
+      border-radius: 5px;
+      transition: background-color 0.3s;
     }
 
     .sortear {
@@ -89,15 +95,44 @@
 
     input[type="text"] {
       width: 100%;
-      padding: 5px;
+      padding: 10px;
       font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      box-sizing: border-box;
     }
 
     .mensagem-erro {
       color: red;
       margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .numero {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        line-height: 30px;
+      }
+
+      .sortear, .salvarCSV, .limpar {
+        font-size: 18px;
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .numero {
+        width: 25px;
+        height: 25px;
+        font-size: 14px;
+        line-height: 25px;
+      }
+
+      .sortear, .salvarCSV, .limpar {
+        font-size: 16px;
+        height: 35px;
+      }
     }
   </style>
 </head>
@@ -111,9 +146,9 @@
       <label for="maximo">Valor Máximo:</label>
       <input type="text" id="maximo" placeholder="999" oninput="validarNumero(this)">
       
-      <button type="button" id="sortear" class="sortear">Sortear</button>
-      <button type="button" id="salvarCSV" class="salvarCSV">Salvar Excel</button>
-      <button type="button" id="limpar" class="limpar">Limpar</button>
+      <button type="button" id="sortear" class="sortear" aria-label="Sortear números">Sortear</button>
+      <button type="button" id="salvarCSV" class="salvarCSV" aria-label="Salvar resultados como CSV">Salvar CSV</button>
+      <button type="button" id="limpar" class="limpar" aria-label="Limpar resultados">Limpar</button>
       <div id="resultado" class="resultado"></div>
       <label for="nomeArquivo">Nome do Arquivo:</label>
       <input type="text" id="nomeArquivo" placeholder="numeros_sorteados">
@@ -155,7 +190,7 @@
 
       document.getElementById("resultado").innerHTML = html;
       document.getElementById("mensagemErro").textContent = "";
-      document.getElementById("salvarCSV").style.pointerEvents = "auto"; // Ativar o botão "Salvar Excel"
+      document.getElementById("salvarCSV").style.pointerEvents = "auto"; // Ativar o botão "Salvar CSV"
       document.getElementById("salvarCSV").style.opacity = "1"; // Ativar a opacidade
       document.getElementById("salvarCSV").style.cursor = "pointer"; // Alterar cursor para pointer
     };
@@ -190,7 +225,7 @@
       document.getElementById("resultado").innerHTML = "";
       document.getElementById("nomeArquivo").value = ""; // Limpar o campo do nome do arquivo
       document.getElementById("mensagemErro").textContent = ""; // Limpar mensagem de erro
-      document.getElementById("salvarCSV").style.pointerEvents = "none"; // Inativar o botão "Salvar Excel"
+      document.getElementById("salvarCSV").style.pointerEvents = "none"; // Inativar o botão "Salvar CSV"
       document.getElementById("salvarCSV").style.opacity = "0.6"; // Reduzir a opacidade
       document.getElementById("salvarCSV").style.cursor = "not-allowed"; // Alterar cursor para not-allowed
     };
