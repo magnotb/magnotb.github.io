@@ -169,13 +169,21 @@
       const data = numerosSorteados.map(num => ({ Número: num }));
       const ws = XLSX.utils.json_to_sheet(data);
       const wb = XLSX.utils.book_new();
+      
+      // Nome do arquivo para o título
+      const nomeArquivo = document.getElementById("nomeArquivo").value || "numeros_sorteados";
+      const nomeComCabecalho = { "A1": { v: nomeArquivo } };
+
+      // Adiciona o cabeçalho na primeira linha da planilha
+      ws["!cols"] = [{ width: 20 }]; // Ajusta a largura da coluna para melhor visualização
+      ws["A1"] = { v: nomeArquivo, t: "s" }; // Adiciona o nome do arquivo na primeira célula
+
+      // Adiciona a planilha ao workbook
       XLSX.utils.book_append_sheet(wb, ws, "Números Sorteados");
       
-      let nomeArquivo = document.getElementById("nomeArquivo").value || "numeros_sorteados";
-      if (!nomeArquivo.endsWith(".xlsx")) {
-        nomeArquivo += ".xlsx";
-      }
-      XLSX.writeFile(wb, nomeArquivo);
+      // Nome do arquivo com a extensão
+      const nomeArquivoCompleto = nomeArquivo.endsWith(".xlsx") ? nomeArquivo : `${nomeArquivo}.xlsx`;
+      XLSX.writeFile(wb, nomeArquivoCompleto);
     };
 
     const limparResultado = () => {
