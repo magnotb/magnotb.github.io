@@ -116,7 +116,7 @@
       <button type="button" id="limpar" class="limpar">Limpar</button>
       <div id="resultado" class="resultado"></div>
       <label for="nomeArquivo">Nome do Arquivo:</label>
-      <input type="text" id="nomeArquivo" placeholder="numeros_sorteados.xlsx">
+      <input type="text" id="nomeArquivo" placeholder="numeros_sorteados">
       <div id="mensagemErro" class="mensagem-erro"></div>
     </div>
   </div>
@@ -166,13 +166,15 @@
         return;
       }
 
-      // Convertendo o array para formato adequado
       const data = numerosSorteados.map(num => ({ Número: num }));
       const ws = XLSX.utils.json_to_sheet(data);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Números Sorteados");
       
-      const nomeArquivo = document.getElementById("nomeArquivo").value || "numeros_sorteados.xlsx";
+      let nomeArquivo = document.getElementById("nomeArquivo").value || "numeros_sorteados";
+      if (!nomeArquivo.endsWith(".xlsx")) {
+        nomeArquivo += ".xlsx";
+      }
       XLSX.writeFile(wb, nomeArquivo);
     };
 
